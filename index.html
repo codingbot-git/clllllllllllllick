@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Click Center Button</title>
+    <title>Hover & Click Button</title>
     <style>
         body {
             margin: 0;
@@ -11,21 +11,59 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #ffffff; /* 배경: 흰색 */
+            background: white;
         }
 
-        button {
+        #clickBtn {
             padding: 20px 40px;
             font-size: 24px;
             font-weight: bold;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            background-color: #d9d9d9; /* 버튼: 회색 */
+            background-color: #d9d9d9;
+            transition: transform 0.15s ease;
         }
     </style>
 </head>
 <body>
-    <button>Click</button>
+
+    <!-- 버튼 -->
+    <button id="clickBtn">Click</button>
+
+    <!-- 사운드 파일들 -->
+    <audio id="hoverSound" src="Sound Effect/hover.mp4"></audio>
+    <audio id="clickSound" src="Sound Effect/click.mp4"></audio>
+
+    <script>
+        const btn = document.getElementById("clickBtn");
+        const hoverSound = document.getElementById("hoverSound");
+        const clickSound = document.getElementById("clickSound");
+
+        // Hover 시 → 커짐 + hover 소리
+        btn.addEventListener("mouseenter", () => {
+            btn.style.transform = "scale(1.15)";
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+        });
+
+        // Hover 벗어나면 → 원래 크기
+        btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "scale(1)";
+        });
+
+        // 클릭 시 → 작아짐 + click 소리
+        btn.addEventListener("mousedown", () => {
+            btn.style.transform = "scale(0.9)";
+            clickSound.currentTime = 0;
+            clickSound.play();
+        });
+
+        // 클릭 떼면 → hover 크기 유지
+        btn.addEventListener("mouseup", () => {
+            btn.style.transform = "scale(1.15)";
+        });
+    </script>
+
 </body>
 </html>
